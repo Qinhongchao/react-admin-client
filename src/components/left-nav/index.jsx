@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Menu, Icon } from "antd";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/SGM-PATAC-Logo.png";
 import { Link } from "react-router-dom";
 import menuList from "../../config/menuConfig";
 import { withRouter } from "react-router-dom";
@@ -52,13 +52,13 @@ class LeftNav extends Component {
     const pathName = this.props.location.pathname;
     const menuNodes = this.getMenuNodes(menuList);
    
-   
     return (
       <div className="left-nav">
         <Link to="/" className="left-nav-header">
           <img src={logo} alt="logo" />
-          <h1>商品后台</h1>
+         
         </Link>
+        <div className='bottom-line'></div>
         <Menu
           selectedKeys={[pathName]}
           defaultOpenKeys={[this.openKey]}
