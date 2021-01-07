@@ -11,6 +11,7 @@ import Role from '../role'
 import Pie from '../chart/pie'
 import Line from '../chart/line'
 import Bar from '../chart/bar'
+import Order from '../order'
 
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -39,10 +40,11 @@ export default class Admin extends Component {
             <Route path='/role'  component={Role}/>
             <Route path='/user'  component={User}/>
             <Route path='/category'  component={Category}/>
-            <Route path='/product'  component={Product}/>
-            <Route path='/chart/pie'  component={Pie}/>
-            <Route path='/chart/line'  component={Line}/>
-            <Route path='/chart/bar'  component={Bar}/>
+            <Route path='/products'  component={Product}/>
+            <Route path='/charts/pie'  component={Pie}/>
+            <Route path='/charts/line'  component={Line}/>
+            <Route path='/charts/bar'  component={Bar}/>
+            <Route path='/order'  component={Order}/>
             <Redirect to='/home' />
           </Switch>
         </Content>

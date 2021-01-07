@@ -2,13 +2,57 @@ import React, { Component } from "react";
 import { Menu, Icon } from "antd";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
-import { PieChartOutlined, MailOutlined } from "@ant-design/icons";
+import menuList from "../../config/menuConfig";
+import { withRouter } from "react-router-dom";
 import "./index.less";
 
 const { SubMenu } = Menu;
 
-export default class index extends Component {
+class LeftNav extends Component {
+  getMenuNodes(menuList) {
+    const pathName = this.props.location.pathname;
+    return menuList.reduce((prev, item) => {
+      if (!item.children) {
+        prev.push((
+          <Menu.Item key={item.key}>
+            <Link to={item.key}>
+              <Icon type={item.icon} />
+              <span>{item.title}</span>
+            </Link>
+          </Menu.Item>
+        )
+
+        );
+      } else {
+        const openKey=item.children.map(child=>child.key).find(key=>key===pathName)
+        if(openKey){
+          this.openKey=item.key
+        }
+       
+        prev.push((
+          <SubMenu key={item.key} title={
+            <span>
+              <Icon type={item.icon} />
+              <span>{item.title}</span>
+            </span>
+          }>
+            {this.getMenuNodes(item.children)}
+          </SubMenu>
+        )
+
+        );
+      }
+      return prev;
+    }, []);
+  }
+
+
+
   render() {
+    const pathName = this.props.location.pathname;
+    const menuNodes = this.getMenuNodes(menuList);
+   
+   
     return (
       <div className="left-nav">
         <Link to="/" className="left-nav-header">
@@ -16,67 +60,16 @@ export default class index extends Component {
           <h1>商品后台</h1>
         </Link>
         <Menu
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
+          selectedKeys={[pathName]}
+          defaultOpenKeys={[this.openKey]}
           mode="inline"
           theme="dark"
         >
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
-            <Link to="/home">
-              <Icon type="pie-chart" />
-              <span> 首页</span>
-            </Link>
-          </Menu.Item>
-
-          <SubMenu key="2" icon={<MailOutlined />} title="商品">
-            <Menu.Item key="5">
-              <Link to="/category">
-                <Icon type="mail" />
-                <span> 品类管理</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="6">
-              <Link to="/product">
-                <Icon type="mail" />
-                <span> 商品管理</span>
-              </Link>
-            </Menu.Item>
-          </SubMenu>
-          <Menu.Item key="3" icon={<PieChartOutlined />}>
-            <Link to="/user">
-              <Icon type="mail" />
-              <span> 用户管理</span>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="4" icon={<PieChartOutlined />}>
-            <Link to="/role">
-              <Icon type="mail" />
-              <span> 角色管理</span>
-            </Link>
-          </Menu.Item>
-          <SubMenu key="7" icon={<MailOutlined />} title="图形图表">
-            <Menu.Item key="5">
-              <Link to="/category">
-                <Icon type="mail" />
-                <span> 饼图</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="6">
-              <Link to="/product">
-                <Icon type="mail" />
-                <span> 柱状图</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="9">
-              <Link to="/product">
-                <Icon type="mail" />
-                <span> 折线图</span>
-              </Link>
-            </Menu.Item>
-          </SubMenu>
-      
+          {menuNodes}
         </Menu>
       </div>
     );
   }
 }
+
+export default withRouter(LeftNav);
