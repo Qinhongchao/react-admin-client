@@ -32,7 +32,7 @@ export default class Admin extends Component {
       <Layout style={{height:'100%'}}>
       <Sider><LeftNav/></Sider>
       <Layout>
-        <Header>Header</Header>
+        <Header style={{height:'80px',backgroundColor:'#f0f2f5'}}>Header</Header>
         <Content style={{backgroundColor:'white'}}>
           <Switch>
             <Route path='/home'  component={Home}/>

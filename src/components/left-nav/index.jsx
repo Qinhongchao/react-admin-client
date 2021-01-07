@@ -42,7 +42,19 @@ export default class index extends Component {
               </Link>
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="7" icon={<MailOutlined />} title="图表">
+          <Menu.Item key="3" icon={<PieChartOutlined />}>
+            <Link to="/user">
+              <Icon type="mail" />
+              <span> 用户管理</span>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="4" icon={<PieChartOutlined />}>
+            <Link to="/role">
+              <Icon type="mail" />
+              <span> 角色管理</span>
+            </Link>
+          </Menu.Item>
+          <SubMenu key="7" icon={<MailOutlined />} title="图形图表">
             <Menu.Item key="5">
               <Link to="/category">
                 <Icon type="mail" />
@@ -62,18 +74,7 @@ export default class index extends Component {
               </Link>
             </Menu.Item>
           </SubMenu>
-          <Menu.Item key="3" icon={<PieChartOutlined />}>
-            <Link to="/user">
-              <Icon type="mail" />
-              <span> 用户管理</span>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="4" icon={<PieChartOutlined />}>
-            <Link to="/role">
-              <Icon type="mail" />
-              <span> 角色管理</span>
-            </Link>
-          </Menu.Item>
+      
         </Menu>
       </div>
     );
