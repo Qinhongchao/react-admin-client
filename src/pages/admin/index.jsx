@@ -12,9 +12,10 @@ import Pie from '../chart/pie'
 import Line from '../chart/line'
 import Bar from '../chart/bar'
 import Order from '../order'
+import Header from '../../components/header'
 
 
-const { Header, Footer, Sider, Content } = Layout;
+const {  Footer, Sider, Content } = Layout;
 
 export default class Admin extends Component {
 
@@ -33,8 +34,8 @@ export default class Admin extends Component {
       <Layout style={{height:'100%'}}>
       <Sider><LeftNav/></Sider>
       <Layout>
-        <Header style={{height:'80px',backgroundColor:'#f0f2f5'}}>Header</Header>
-        <Content style={{backgroundColor:'white'}}>
+        <Header >Header</Header>
+        <Content style={{margin:20,backgroundColor:'#f0f2f5'}}>
           <Switch>
             <Route path='/home'  component={Home}/>
             <Route path='/role'  component={Role}/>
