@@ -41,7 +41,7 @@ export default class Admin extends Component {
             <Route path='/role'  component={Role}/>
             <Route path='/user'  component={User}/>
             <Route path='/category'  component={Category}/>
-            <Route path='/products'  component={Product}/>
+            <Route path='/product'  component={Product}/>
             <Route path='/charts/pie'  component={Pie}/>
             <Route path='/charts/line'  component={Line}/>
             <Route path='/charts/bar'  component={Bar}/>
