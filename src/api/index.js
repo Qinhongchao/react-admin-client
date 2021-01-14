@@ -58,3 +58,10 @@ export const reqSearchProducts = ({pageNum, pageSize, searchName, searchType}) =
 
   // 更新商品的状态(上架/下架)
 export const reqUpdateStatus = (productId, status) => ajax(BASE_URL + '/manage/product/updateStatus', {productId, status}, 'POST')
+
+// 获取所有角色的列表
+export const reqRoles = () => ajax(BASE_URL + '/manage/role/list')
+// 添加角色
+export const reqAddRole = (roleName) => ajax(BASE_URL + '/manage/role/add', {roleName}, 'POST')
+// 添加角色
+export const reqUpdateRole = (role) => ajax(BASE_URL + '/manage/role/update', role, 'POST')
