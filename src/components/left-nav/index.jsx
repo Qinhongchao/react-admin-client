@@ -4,14 +4,36 @@ import logo from "../../assets/images/SGM-PATAC-Logo.png";
 import { Link } from "react-router-dom";
 import menuList from "../../config/menuConfig";
 import { withRouter } from "react-router-dom";
+import  memoryUtils from '../../utils/memoryUtils'
 import "./index.less";
 
 const { SubMenu } = Menu;
 
 class LeftNav extends Component {
+
+  
+
+  hasAuth=(item)=>{
+
+    const {key , isPublic}=item
+    const menus=memoryUtils.user.role.menus
+    const username=memoryUtils.user.username
+
+    if(isPublic||username==='admin'||menus.indexOf(key)!==-1){
+      return true
+    }else if(item.children&&item.children.length>0){
+      return !!item.children.find(child=>{return menus.indexOf(child.key)!==-1})
+    }
+
+    return false
+
+  }
+
   getMenuNodes(menuList) {
     const pathName = this.props.location.pathname;
     return menuList.reduce((prev, item) => {
+
+      if(this.hasAuth(item)){
       if (!item.children) {
         prev.push((
           <Menu.Item key={item.key}>
@@ -41,7 +63,7 @@ class LeftNav extends Component {
         )
 
         );
-      }
+      }}
       return prev;
     }, []);
   }

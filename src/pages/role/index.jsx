@@ -5,7 +5,8 @@ import AuthForm from "./auth-form";
 import { reqAddRole, reqRoles, reqUpdateRole } from "../../api";
 import { formateDate } from "../../utils/dateUtils";
 import { PAGE_SIZE } from "../../utils/constants";
-import memoryUtils from '../../utils/memoryUtils'
+import memoryUtils from "../../utils/memoryUtils";
+import storageUtils from "../../utils/storageUtils";
 
 export default class Role extends Component {
   state = {
@@ -44,17 +45,28 @@ export default class Role extends Component {
     const menus = this.auth.current.getMenus();
     const role = this.state.role;
     role.menus = menus;
-    role.auth_time=Date.now()
-    role.auth_name=memoryUtils.user.username
+    role.auth_time = Date.now();
+    role.auth_name = memoryUtils.user.username;
     this.setState({ role });
     const result = await reqUpdateRole(role);
     if (result.status === 0) {
-      message.success("更新角色权限成功");
+      // this.getRoles()
+      // 如果当前更新的是自己角色的权限, 强制退出
+      if (role._id === memoryUtils.user.role_id) {
+        memoryUtils.user = {}
+        storageUtils.deleteUser()
+        this.props.history.replace('/login')
+        message.success('当前用户角色权限成功')
+      } else {
+        message.success('设置角色权限成功')
+        this.setState({
+          roles: [...this.state.roles]
+        })
+      }
     } else {
       message.error("更新角色权限失败");
     }
-    this.setState({isShowAuth:false})
-
+    this.setState({ isShowAuth: false });
   };
   initColumn = () => {
     this.columns = [
